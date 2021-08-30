@@ -1,0 +1,58 @@
+﻿@model IEnumerable<EchoLinkDataModel.Models.User>
+
+@{
+    ViewBag.Title = "User List";
+    foreach(var item in Model)
+}
+
+<p>
+    <a asp-action="Insert">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adresses)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @foreach(var add in item.Adresses)
+                    {
+                       @Html.DisplayFor(modelItem => add.Street) <span>,</span> @Html.DisplayFor(modelItem => add.District) <span>,</span> @Html.DisplayFor(modelItem => add.City)
+                       <br />
+                    }
+                    
+                    </td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
