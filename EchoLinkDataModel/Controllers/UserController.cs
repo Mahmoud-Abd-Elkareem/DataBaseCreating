@@ -79,20 +79,20 @@ namespace EchoLinkDataModel.Controllers
         public IActionResult Update(int id)
         {
             User us = sd.GetById(id);
-            List<Adress> add = ad.GetAll().Where(a=>a.UserID==id).ToList(); 
+            Adress[] add = ad.GetAll().Where(a=>a.UserID==id).ToArray(); 
             UserAdressViewModels useradress = new UserAdressViewModels();
             useradress.ID = us.ID;
             useradress.Name = us.Name;
             useradress.Email = us.Email;
             useradress.PhoneNumber = us.PhoneNumber;
             useradress.Information = us.Information;
-            foreach(var address in add)
-            {
-                useradress.City = address.City;
-                useradress.Street = address.Street;
-                useradress.District = address.District;
-            }
-
+            useradress.Street = add[0].Street;
+            useradress.District=add[0].District;
+            useradress.City= add[0].City;
+            useradress.Street2 = add[1].Street;
+            useradress.District2 = add[1].District;
+            useradress.City2 = add[1].City;
+            ViewBag.userdetails = useradress;
             return View();
         }
         [HttpPost]
